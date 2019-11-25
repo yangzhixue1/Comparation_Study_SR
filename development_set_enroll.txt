@@ -1,8 +1,8 @@
-wilderd_123/wav/wilderd_01.wav
-wilderd_123/wav/wilderd_02.wav
-wilderd_123/wav/wilderd_03.wav
-wilderd_123/wav/wilderd_04.wav
-wilderd_123/wav/wilderd_05.wav
+wilderd-123/wav/wilderd-01.wav
+wilderd-123/wav/wilderd-02.wav
+wilderd-123/wav/wilderd-03.wav
+wilderd-123/wav/wilderd-04.wav
+wilderd-123/wav/wilderd-05.wav
 anthonyschaller-20071221-/wav/a0491.wav
 anthonyschaller-20071221-/wav/a0492.wav
 anthonyschaller-20071221-/wav/a0493.wav

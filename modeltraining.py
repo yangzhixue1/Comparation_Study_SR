@@ -17,8 +17,8 @@ source   = "development_set/"
 # dest = "speaker_models/" # carpetas de modelos
 # train_file = "development_set_enroll.txt"  # archivo de la lista de entrenamiento files.vaw
 
-dest = "/home/wilderd/Documents/SR/Speaker-Identification-Python-master/Speakers_models/"
-train_file = "/home/wilderd/Documents/SR/Speaker-Identification-Python-master/development_set_enroll.txt"
+dest = "/home/wilderd/Documents/SR/Comparation_Study_SR/Speakers_models/"
+train_file = "/home/wilderd/Documents/SR/Comparation_Study_SR/development_set_enroll.txt"
 file_paths = open(train_file,'r')
 
 count = 1
@@ -40,7 +40,7 @@ for path in file_paths:
         features = np.vstack((features, vector))
     # when features of 5 files of speaker are concatenated, then do model training
 	# -> if count == 5: --> edited below
-    if count == 15:
+    if count == 5:
         # we change max_iter instead of n_iter
         gmm = GMM(n_components =16, max_iter = 200, covariance_type='diag',n_init = 3)
         gmm.fit(features)

@@ -17,10 +17,10 @@ modelpath = "speaker_models/"
 test_file = "development_set_test.txt"
 file_paths = open(test_file,'r')
 """
-#path to training data
+#path donde el audio sera extraido
 source   = "/home/wilderd/Documents/SR/Speaker-Identification-Python-master/SampleData/"
 
-#path where training speakers will be saved
+# url donde el modelo training será guardado
 modelpath = "/home/wilderd/Documents/SR/Speaker-Identification-Python-master/Speakers_models/"
 
 gmm_files = [os.path.join(modelpath,fname) for fname in
@@ -32,6 +32,7 @@ for fname in gmm_files:
 #Load the Gaussian gender Models
 #modelo = cPickle.load(open('','rb'))
 
+# modelo donde podremos extraer el modelo ya guardado
 modelos = cPickle.load(open('/home/wilderd/Documents/SR/Speaker-Identification-Python-master/Speakers_models/Ara.gmm','rb'))
 
 
@@ -45,13 +46,14 @@ speakers   = [fname.split("/")[-1].split(".gmm")[0] for fname
 error = 0
 total_sample = 0.0
 
-print ("Do you want to Test a Single Audio: Press '1' or The complete Test Audio Sample: Press '0' ?")
+#print ("Do you want to Test a Single Audio: Press '1' or The complete Test Audio Sample: Press '0' ?")
+print("si quieres hacer test a un Audio presiona 1 sino, presiona 0 para completar los Audios de Muestra")
 take = int(input().strip())
 
 if (take == 1):
-    print("Enter the File name from Test Audio Sample Collection :")
+    print("Escriba el nombre del archivo de test:")
     path = input().strip()
-    print(path)
+    print("ruta: "+source+" nombre:"+path)
 	#print(path)
     sr.audio = read(source + path)
     vector   = extract_features(audio,sr)
@@ -59,38 +61,38 @@ if (take == 1):
     log_likelihood = np.zeros(len(models))
 
     for i in range(len(models)):
-        gmm    = models[i]  #checking with each model one by one
+        gmm    = models[i]  # comprobando cada modelo uno por uno
         scores = np.array(gmm.score(vector))
         log_likelihood[i] = scores.sum()
 
     winner = np.argmax(log_likelihood)
-    print("\tdetected as - ", speakers[winner])
+    print("\tdetectado como - ", speakers[winner])
 
     time.sleep(1.0)
 
 elif take == 0:
-	test_file = "testSamplePath.txt"
+	test_file = "testSamplePath.txt" # archivo txt con lista de test
 	file_paths = open(test_file,'r')
 
 
-	# Read the test directory and get the list of test audio files
+	# Lee el directorio del test y obtiene la lista de archivos de audio
 	for path in file_paths:
 
     		total_sample += 1.0
     		path = path.strip()
-    		print("Testing Audio : ", path)
+    		print("Probando Audio : ", path)
     		sr,audio = read(source + path)
     		vector   = extract_features(audio,sr)
 
     		log_likelihood = np.zeros(len(models))
 
     		for i in range(len(models)):
-        		gmm    = models[i]  #checking with each model one by one
+        		gmm    = models[i]  # comprobando cada modelo uno por uno
         		scores = np.array(gmm.score(vector))
         		log_likelihood[i] = scores.sum()
 
     		winner = np.argmax(log_likelihood)
-    		print("\tdetected as - ", speakers[winner])
+    		print("\tdetectado como - ", speakers[winner])
 
     		checker_name = path.split("_")[0]
     		if speakers[winner] != checker_name:
@@ -100,7 +102,7 @@ elif take == 0:
 	print(error, total_sample)
 	accuracy = ((total_sample - error) / total_sample) * 100
 
-	print("The Accuracy Percentage for the current testing Performance with MFCC + GMM is : ", accuracy, "%")
+	print("El porcentaje de efectividad (accuracy) de la preuba rendimiento con MFCC + GMM es : ", accuracy, "%")
 
 
-print("Hurrey ! Speaker identified. Mission Accomplished Successfully. ")
+print("Hurra!, locutores indentificados, Mision alcanzada exitosamente. ")
