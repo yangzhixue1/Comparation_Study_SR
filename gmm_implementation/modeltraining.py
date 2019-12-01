@@ -29,10 +29,10 @@ for path in file_paths:
     print(path)
 
     # leemos el audio
-    sr,audio = read(source + path)
+    sample_rate,audio = read(source + path)
 
     # Extrae 40 dimensiones de MFCC & delta MFCC features
-    vector   = extract_features(audio,sr)
+    vector   = extract_features(audio,sample_rate)
 
     if features.size == 0:
         features = vector
